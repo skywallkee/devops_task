@@ -1,12 +1,11 @@
-version: '3.8'
-
 services:
   app:
     build: ./app
     ports:
-      - "5000:5000"
+      - "${PORT}:${PORT}"
     environment:
-      - MONGO_URI=mongodb://mongodb:27017/
+      - MONGO_URI
+      - FLASK_ENV
     depends_on:
       - mongodb
 
@@ -16,3 +15,6 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+
+volumes:
+  mongo-data:
