@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: flask-mongo-app
-          image: flask-mongo-app:latest
+          image: flask-mongo-app
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5000
           env:
