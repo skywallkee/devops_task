@@ -6,7 +6,7 @@ docker stack ls | findstr flask-mongo >nul
 if %errorlevel% equ 0 (
     echo Removing existing stack flask-mongo...
     docker stack rm flask-mongo
-    timeout /t 5 /nobreak
+    timeout /t 8 /nobreak
 ) else (
     echo Stack flask-mongo is not running.
 )

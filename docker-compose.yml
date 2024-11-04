@@ -1,6 +1,6 @@
 services:
   app:
-    build: ./app
+    image: flask-mongo-app
     ports:
       - "${PORT}:${PORT}"
     environment:
@@ -8,13 +8,31 @@ services:
       - FLASK_ENV
     depends_on:
       - mongodb
+    deploy:
+      restart_policy:
+        condition: on-failure
 
   mongodb:
     image: mongo:latest
     ports:
       - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME_FILE=/run/secrets/mongo_username
+      - MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/mongo_password
     volumes:
       - mongo-data:/data/db
+    secrets:
+      - mongo_username
+      - mongo_password
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+secrets:
+  mongo_username:
+    external: true
+  mongo_password:
+    external: true
 
 volumes:
   mongo-data:
