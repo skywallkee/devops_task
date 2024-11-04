@@ -13,8 +13,9 @@ app = Flask(__name__)
 # Initialize PrometheusMetrics to expose the /metrics endpoint
 metrics = PrometheusMetrics(app)
 
-# Replace the logging setup with a structured logger
-logging.basicConfig(level=logging.INFO, format='%(message)s')
+# Setup logging to write to a file
+log_file_path = '/var/log/flask_app.log'
+logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s', handlers=[logging.FileHandler(log_file_path), logging.StreamHandler()])
 
 # Setup MongoDB connection
 # Update the connection string as per your MongoDB setup

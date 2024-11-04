@@ -33,3 +33,10 @@ spec:
             requests:
               cpu: "250m"
               memory: "256Mi"
+          volumeMounts:
+            - mountPath: /var/log
+              name: log-volume
+      volumes:
+        - name: log-volume
+          persistentVolumeClaim:
+            claimName: log-pvc
